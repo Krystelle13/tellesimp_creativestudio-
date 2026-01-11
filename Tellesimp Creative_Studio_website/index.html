@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tellesimp Creative Studio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Inter',sans-serif;
+background:#ffffff;
+color:#2e2e2e;
+line-height:1.8;
+font-size:18px;
+overflow-x: hidden;
+}
+
+/* =====================
+   TOP INFO BAR
+===================== */
+.top-info{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 40px;
+background:#2b2b2b;
+color:#d4af37;
+font-size:14px;
+position: fixed;
+width: 100%;
+top: 0;
+z-index: 2000;
+}
+
+/* =====================
+   VERTICAL NAV
+===================== */
+nav{
+position:fixed;
+left:0;
+top:40px;
+height:100%;
+width:220px;
+background:#1f1f1f;
+padding:30px 20px;
+z-index:1000;
+}
+
+.logo-trigger {
+cursor: pointer;
+margin-bottom: 40px;
+transition: transform 0.3s ease;
+}
+.logo-trigger:hover { transform: scale(1.05); }
+
+.logo-trigger h1 {
+font-family:'Poppins',sans-serif;
+font-size:22px;
+color:#d4af37;
+}
+
+#logoPopup {
+display: none;
+flex-direction: column;
+align-items: center;
+background: #2b2b2b;
+padding: 15px;
+border-radius: 10px;
+margin-bottom: 20px;
+position: relative;
+border: 1px solid #d4af37;
+animation: fadeIn 0.4s ease;
+}
+
+#logoPopup img { width: 100px; margin-bottom: 10px; border-radius: 5px; }
+#logoPopup span { color: #d4af37; font-size: 14px; font-weight: bold; text-align: center; }
+
+.close-btn-small {
+position: absolute;
+top: 5px;
+right: 10px;
+color: #fff;
+cursor: pointer;
+font-size: 14px;
+}
+
+nav ul{ list-style:none; display:flex; flex-direction:column; gap:20px; }
+nav a{
+text-decoration:none;
+color:#e0e0e0;
+font-weight:500;
+transition: 0.3s ease;
+display: inline-block;
+}
+nav a:hover{ color:#d4af37; transform: translateX(10px); }
+
+/* =====================
+   MAIN CONTENT
+===================== */
+.main{ margin-left:220px; margin-top: 40px; }
+
+.logo-banner{
+position:relative;
+background:linear-gradient(135deg,#d4af37,#f5e6b0,#cfcfcf);
+padding:150px 20px;
+text-align:center;
+overflow:hidden;
+min-height: 80vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.logo-banner h2 { font-family:'Poppins',sans-serif; font-size:64px; font-weight:900; color:#3a3a3a; margin-bottom: 10px; }
+.logo-banner h3 { font-family:'Poppins',sans-serif; font-size:32px; color:#b58b2a; margin-bottom: 20px; }
+.logo-banner p { max-width: 700px; margin-bottom: 30px; font-weight: 500; }
+
+/* =====================
+   BUTTON ANIMATIONS
+===================== */
+.cta-buttons { display: flex; gap: 20px; justify-content: center; }
+.btn-home {
+padding: 15px 35px;
+border-radius: 30px;
+border: none;
+font-weight: bold;
+cursor: pointer;
+font-family: 'Poppins', sans-serif;
+transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.btn-home:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+.btn-contact { background: #2b2b2b; color: #d4af37; animation: pulse-dark 2s infinite; }
+.btn-designer { background: #b58b2a; color: #fff; animation: pulse-gold 2s infinite; animation-delay: 1s; }
+
+@keyframes pulse-dark {
+0% { box-shadow: 0 0 0 0 rgba(43, 43, 43, 0.4); }
+70% { box-shadow: 0 0 0 15px rgba(43, 43, 43, 0); }
+100% { box-shadow: 0 0 0 0 rgba(43, 43, 43, 0); }
+}
+@keyframes pulse-gold {
+0% { box-shadow: 0 0 0 0 rgba(181, 139, 42, 0.4); }
+70% { box-shadow: 0 0 0 15px rgba(181, 139, 42, 0); }
+100% { box-shadow: 0 0 0 0 rgba(181, 139, 42, 0); }
+}
+
+/* =====================
+   SECTIONS & CARDS
+===================== */
+section{ padding:120px 40px; opacity:0; transform:translateY(40px); transition:1s ease; }
+section.show{ opacity:1; transform:translateY(0); }
+.section-title{ text-align:center; font-family:'Poppins',sans-serif; font-size:38px; color:#b58b2a; margin-bottom:50px; }
+
+#services{background:#f8f8f8;}
+.services{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:30px; }
+.card{ background:#fff; padding:35px; border-radius:18px; border:1px solid #e5e5e5; box-shadow:0 8px 18px rgba(0,0,0,0.08); transition: 0.3s; }
+.card:hover { transform: translateY(-10px); border-color: #d4af37; }
+.card h4 { color: #b58b2a; margin-bottom: 10px;}
+
+/* =====================
+   PORTFOLIO STYLES
+===================== */
+.portfolio-btn{ 
+display:block; margin:60px auto; padding:18px 55px; font-size:20px; border:none; border-radius:40px; 
+background:linear-gradient(to right,#444,#7a7a7a); color:#fff; cursor:pointer; transition: 0.3s;
+}
+.portfolio-btn:hover { background: #b58b2a; transform: scale(1.05); }
+
+.design-buttons{ display:none; text-align:center; margin-bottom:40px; animation: fadeIn 0.5s; }
+.design-buttons button { 
+margin: 5px; padding: 12px 25px; border-radius: 25px; border: none; color: #fff; cursor: pointer; transition: 0.3s;
+}
+.design-buttons button:hover { transform: scale(1.1); }
+
+.web{background:#d4af37; color: #000;} .graphic{background:#777;} .doc{background:#555;} .ppt{background:#3f3f3f;}
+
+.portfolio-grid{ 
+display:none; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px; max-width:1100px; margin:auto; animation: zoomIn 0.4s;
+}
+.item{ background:#eee; border-radius:16px; height: 200px; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; }
+
+/* =====================
+   MODALS
+===================== */
+.modal {
+display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%;
+background-color: rgba(0,0,0,0.85); justify-content: center; align-items: center; backdrop-filter: blur(5px);
+}
+.modal-content {
+background: #fff; padding: 40px; border-radius: 20px; width: 90%; max-width: 500px; text-align: center;
+position: relative; animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); border-top: 8px solid #d4af37;
+}
+.close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #333; }
+.close-modal:hover { color: #d4af37; transform: rotate(90deg); transition: 0.3s; }
+
+@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+@keyframes zoomIn { from {transform: scale(0.5); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+footer{ background:#2b2b2b; color:#e0e0e0; text-align:center; padding:25px; margin-top: 50px; }
+</style>
+</head>
+
+<body>
+
+<div class="top-info">
+<div><i class="fa-solid fa-gem"></i> Elegant Designs</div>
+<div><i class="fa-solid fa-palette"></i> Creative Studio</div>
+<div><i class="fa-solid fa-envelope"></i> Contact Anytime</div>
+</div>
+
+<nav>
+<div class="logo-trigger" onclick="toggleLogo()">
+<h1>Tellesimp</h1>
+<p style="font-size: 10px; color: #888;">Click to reveal logo</p>
+</div>
+
+<div id="logoPopup">
+<span class="close-btn-small" onclick="event.stopPropagation(); toggleLogo()">×</span>
+<img src="images/TS TELLESIMP CREATIVE STUDIO LOGO.jpg" alt="Logo">
+<span>Tellesimp Creative Studio</span>
+</div>
+
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#services">Services</a></li>
+</ul>
+</nav>
+
+<div class="main">
+
+<div class="logo-banner" id="home">
+<h2>WELCOME</h2>
+<h3>Tellesimp Creative Studio</h3>
+<p>Elegant, silver & gold inspired designs with a clean and professional interface. Transforming ideas into visual excellence.</p>
+
+<div class="cta-buttons">
+<button class="btn-home btn-contact" onclick="openModal('contactModal')">CONTACT US</button>
+<button class="btn-home btn-designer" onclick="openModal('designerModal')">MEET DESIGNER</button>
+</div>
+</div>
+
+<section id="about">
+<h2 class="section-title">About Tellesimp</h2>
+<p style="text-align: center; max-width: 800px; margin: auto;">
+Tellesimp Creative Studio transforms ideas into clean, elegant, and meaningful designs inspired by gold and silver aesthetics.
+Designed by <strong>Krystelle Maumbas Liray</strong>.
+</p>
+</section>
+
+<section id="services">
+<h2 class="section-title">Our Services</h2>
+<div class="services">
+<div class="card">
+<h4>Website Development</h4>
+<p>Modern, responsive websites with premium gold/silver UI accents.</p>
+</div>
+<div class="card">
+<h4>Graphic Design</h4>
+<p>High-end branding, logos, and digital assets for your business.</p>
+</div>
+<div class="card">
+<h4>Document Design</h4>
+<p>Professional layout and formatting for resumes and corporate documents.</p>
+</div>
+<div class="card">
+<h4>Presentation Design</h4>
+<p>Engaging and elegant PowerPoint/Google Slides transformations.</p>
+</div>
+</div>
+
+<button class="portfolio-btn" onclick="togglePortfolio()">View Portfolio</button>
+
+<div class="design-buttons" id="designButtons">
+<button class="web" onclick="toggleDesign('web')">Website</button>
+<button class="graphic" onclick="toggleDesign('graphic')">Graphic</button>
+<button class="doc" onclick="toggleDesign('doc')">Document</button>
+<button class="ppt" onclick="toggleDesign('ppt')">Presentation</button>
+</div>
+
+<div class="portfolio-grid" id="web"><div class="item">Website Project 1</div><div class="item">Website Project 2</div></div>
+<div class="portfolio-grid" id="graphic"><div class="item">Logo Design 1</div><div class="item">Branding 1</div></div>
+<div class="portfolio-grid" id="doc"><div class="item">Resume Layout</div><div class="item">Report Design</div></div>
+<div class="portfolio-grid" id="ppt"><div class="item">Slide Deck 1</div><div class="item">Pitch Deck 1</div></div>
+</section>
+
+<footer>© 2026 Tellesimp Creative Studio | Designed by Krystelle Maumbas Liray</footer>
+</div>
+
+<div id="contactModal" class="modal">
+<div class="modal-content">
+<span class="close-modal" onclick="closeModal('contactModal')">&times;</span>
+<h2 style="color:#b58b2a">Contact Details</h2>
+<p style="margin-top:20px;"><strong>Facebook:</strong> <a href="#" style="color:#2b2b2b;">facebook.com/krystelle</a></p>
+<p><strong>Email:</strong> krystelle@example.com</p>
+</div>
+</div>
+
+<div id="designerModal" class="modal">
+<div class="modal-content">
+<span class="close-modal" onclick="closeModal('designerModal')">&times;</span>
+<h2 style="color:#b58b2a">Meet the Designer</h2>
+<h3 style="margin-top: 10px;">Krystelle Maumbas Liray</h3>
+<p style="margin-top:20px; color: #555;">
+I am a dedicated student and designer specializing in Website, Graphic, Document, and Presentation design. 
+My goal is to provide elegant and professional visual solutions that stand out.
+</p>
+</div>
+</div>
+
+<script>
+// SCROLL REVEAL
+const sections=document.querySelectorAll('section');
+window.addEventListener('scroll',()=>{
+sections.forEach(sec=>{
+if(sec.getBoundingClientRect().top<window.innerHeight-120){
+sec.classList.add('show');
+}
+});
+});
+
+// SIDEBAR LOGO TOGGLE
+function toggleLogo() {
+const popup = document.getElementById('logoPopup');
+popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+}
+
+// MODAL CONTROLS
+function openModal(id) { document.getElementById(id).style.display = "flex"; }
+function closeModal(id) { document.getElementById(id).style.display = "none"; }
+
+window.onclick = function(event) {
+if (event.target.className === 'modal') { event.target.style.display = "none"; }
+}
+
+// PORTFOLIO LOGIC
+function togglePortfolio(){
+const btns=document.getElementById('designButtons');
+btns.style.display = btns.style.display==='block'?'none':'block';
+// Hide grids when closing buttons
+if(btns.style.display === 'none') {
+document.querySelectorAll('.portfolio-grid').forEach(g=>g.style.display='none');
+}
+}
+function toggleDesign(id){
+const grids = document.querySelectorAll('.portfolio-grid');
+grids.forEach(g => {
+if(g.id === id) {
+g.style.display = (g.style.display === 'grid') ? 'none' : 'grid';
+} else {
+g.style.display = 'none';
+}
+});
+}
+</script>
+
+</body>
+</html>
